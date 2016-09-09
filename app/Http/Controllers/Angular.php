@@ -49,6 +49,12 @@ class Angular extends Controller
         return response()->json($data);
     }
 
+    /**
+     * Проверка существование таблицы
+     *
+     * @param $name
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function issetTable($name)
     {
         return response()->json(Schema::hasTable($name));

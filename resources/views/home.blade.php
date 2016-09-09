@@ -11,15 +11,6 @@
                 <div class="panel-body">
                     <div class="uk-grid" >
                         <div class="ul-width-small-1-1 uk-width-medium-1-1 uk-width-large-1-1">
-                            {{--<div class="form-group">
-                                <label>Метод добавления</label>
-                                <br>
-                                <select ng-model="Table.Method" >
-                                    <option value="" >Выбирите метод добавления</option>
-                                    <option value="new" >В новую</option>
-                                    <option value="isset">В существующую</option>
-                                </select>
-                            </div>--}}
                             <div class="form-group">
                                 <input type="text" name="table_name" ng-change="issetTable()"  class="form-control" placeholder="Введите название таблицы" value="" ng-model="Table.name" >
 
