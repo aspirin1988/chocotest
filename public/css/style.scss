@@ -1,0 +1,15 @@
+$white-color : #ffffff;
+$black-color : rgba(0,0,0,.5);
+.uk-grid {
+    &.file {
+        color: $black-color;
+        background: $white-color;
+        > div:nth-child(2n) {
+            color: $white-color;
+            background: $black-color;
+            h3{
+                color: $white-color;
+            }
+        }
+    }
+}

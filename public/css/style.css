@@ -1,0 +1,10 @@
+.uk-grid.file {
+  color: rgba(0, 0, 0, 0.5);
+  background: #ffffff; }
+  .uk-grid.file > div:nth-child(2n) {
+    color: #ffffff;
+    background: rgba(0, 0, 0, 0.5); }
+    .uk-grid.file > div:nth-child(2n) h3 {
+      color: #ffffff; }
+
+/*# sourceMappingURL=style.css.map */
