@@ -163,6 +163,14 @@ class Csv extends Model
 
     }
 
+    /**
+     * Генирирует поле URL по указанным поля в указанном регистре
+     *
+     * @param $fields
+     * @param $data
+     * @param $case
+     * @return mixed
+     */
     public static function CreateUrl($fields,$data,$case)
     {
         foreach ($data as $key=>$item){
