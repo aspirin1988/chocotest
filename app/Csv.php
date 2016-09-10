@@ -143,6 +143,7 @@ class Csv extends Model
                         settype($data[$key][$key1], 'string');
                         break;
                     case 'boolean':
+                        echo $pattern[$key1]['true'] .'=='. $data[$key][$key1];
                         if ($pattern[$key1]['true']) {
                             if ($pattern[$key1]['true'] == $data[$key][$key1]) {
                                 $data[$key][$key1] = true;

@@ -21,7 +21,7 @@ class FileUpload extends Controller
             'Название акции' => ['type' => 'text', 'case' => 'down'],
             'Дата начала акции' => ['type' => 'date:integer', 'case' => ''],
             'Дата окончания' => ['type' => 'string', 'case' => ''],
-            'Статус' => ['type' => 'boolean', 'case' => '', 'true'=>'on'],
+            'Статус' => ['type' => 'boolean', 'case' => '', 'true'=>'On'],
             'URL' => ['type' => 'string', 'case' => 'down'],
         ];
 
@@ -30,6 +30,7 @@ class FileUpload extends Controller
         $data = Csv::CsvToArray($file->getRealPath());
         $data = Csv::CreateUrl(['ID акции','Название акции'],$data,'down');
         $data = Csv::ValidateArray($data,$pattern);
+        print_r($data);
         $data=Csv::createTable($name_table,$data,$pattern);
         return response()->json($data);
     }

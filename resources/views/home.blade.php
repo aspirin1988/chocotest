@@ -58,7 +58,7 @@
                             </div>
                         </div>
                         <div class="ul-width-small-1-1 uk-width-medium-1-1 uk-width-large-1-1">
-                            <div class="uk-overflow-container">
+                            <div class="uk-overflow-container uk-height-viewport">
                                 <table class="uk-table">
                                     <thead>
                                     <tr>
