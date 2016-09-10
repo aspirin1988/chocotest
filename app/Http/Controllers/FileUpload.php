@@ -17,20 +17,21 @@ class FileUpload extends Controller
     public function UploadFile($name_table,Request $request)
     {
         $pattern = [
-            'id-aktsii' => ['type' => 'integer', 'case' => ''],
-            'data-nachala-aktsii' => ['type' => 'date:integer', 'case' => ''],
-            'data-okonchaniya' => ['type' => 'string', 'case' => ''],
-            'nazvanie-aktsii' => ['type' => 'text', 'case' => 'down'],
-            'status' => ['type' => 'boolean', 'case' => '', 'true'=>'on'],
+            'ID акции' => ['type' => 'integer', 'case' => ''],
+            'Название акции' => ['type' => 'text', 'case' => 'down'],
+            'Дата начала акции' => ['type' => 'date:integer', 'case' => ''],
+            'Дата окончания' => ['type' => 'string', 'case' => ''],
+            'Статус' => ['type' => 'boolean', 'case' => '', 'true'=>'on'],
+            'URL' => ['type' => 'string', 'case' => 'down'],
         ];
 
-        $file = $request->allFiles()['file'];
-        $data = Csv::Translit($file, 'down');
-        $data = Csv::CsvToArray($file);
-        $file = Csv::ValidateArray($data,$pattern);
-        $file=Csv::createTable($name_table,$file,$pattern);
 
-        return response()->json($file);
+        $file = $request->allFiles()['file'];
+        $data = Csv::CsvToArray($file->getRealPath());
+        $data = Csv::CreateUrl(['ID акции','Название акции'],$data,'down');
+        $data = Csv::ValidateArray($data,$pattern);
+        $data=Csv::createTable($name_table,$data,$pattern);
+        return response()->json($data);
     }
 
 

@@ -58,8 +58,7 @@ class Csv extends Model
         $result = [];
         $title = false;
         $row = 0;
-        if (($handle = fopen($file->getRealPath(), "r")) !== FALSE) {
-            if ($file->getMimeType() == 'text/plain') {
+        if (($handle = fopen($file, "r")) !== FALSE) {
 
                 while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
                     if (!$title) {
@@ -74,18 +73,17 @@ class Csv extends Model
                 }
                 fclose($handle);
             }
-        }
         return $result;
     }
 
     /**
      * Транслитирует текст и управляет регистром
      *
-     * @param $file
+     * @param $text
      * @param $case
      * @return mixed|string
      */
-    public static function Translit($file,$case=false)
+    public static function Translit($text,$case=false)
     {
         $translit_table = [
             "а" => "a", "ый" => "iy", "ые" => "ie",
@@ -101,27 +99,20 @@ class Csv extends Model
             "ы" => "y", "ъ" => "", "э" => "e",
             "ю" => "yu", "я" => "ya", "йо" => "yo",
             "ї" => "yi", "і" => "i", "є" => "ye",
-            "ґ" => "g", "," => "-","." => "-",
+            "ґ" => "g", "," => "-", "." => "-",
             ":" => "-", " " => "-",
         ];
 
-        if ($file->getMimeType() == 'text/plain') {
+        $text = $case == 'up' ? mb_strtoupper($text) : $text;
+        $text = $case == 'down' ? mb_strtolower($text) : $text;
 
-            $data = file_get_contents($file->getRealPath());
-            $data = $case == 'up' ? mb_strtoupper($data) : $data;
-            $data = $case == 'down' ? mb_strtolower($data) : $data;
-
-            foreach ($translit_table as $key => $char) {
-                $data = str_replace($key, $char, $data);
-            }
-            $data=preg_replace('/(-){3,}/','-',$data);
-            $data=preg_replace('/(-){2,}/','-',$data);
-            $data=preg_replace('/;"-/',';"',$data);
-            file_put_contents($file->getRealPath(),$data);
-
-            return $data;
+        foreach ($translit_table as $key => $char) {
+            $text = str_replace($key, $char, $text);
         }
-        return false;
+        $text = preg_replace('/(-){3,}/', '-', $text);
+        $text = preg_replace('/(-){2,}/', '-', $text);
+        $text = preg_replace('/^-/', '', $text);
+        return $text;
     }
 
     /**
@@ -169,5 +160,16 @@ class Csv extends Model
         }
         return $data;
 
+    }
+
+    public static function CreateUrl($fields,$data,$case)
+    {
+        foreach ($data as $key=>$item){
+            $data[$key]['URL']='';
+            foreach ($fields as $value) {
+                $data[$key]['URL'] =$data[$key]['URL'].self::Translit($item[$value],$case);
+                }
+        }
+        return $data;
     }
 }
