@@ -32,7 +32,7 @@ class Angular extends Controller
     }
 
     /**
-     * Обновление данных таюлицы
+     * Обновление данных таблицы
      *
      * @param $name
      * @param Request $request
